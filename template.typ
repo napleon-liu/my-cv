@@ -13,31 +13,26 @@
 #let info(
   color: black,
   name: "",
-  phone:"",
-  email:"",
+  phone: "",
+  email: "",
+  gender: "",
+  location:"",
+  identity:"",
   infos:(),
-) ={ 
+) = { 
   set text(fill: color)
   //姓名 电话 邮箱
-  show par: set block(spacing: .5em)
+  show par: set block(spacing: 1em)
   [
-    #text(font: "Microsoft YaHei",fill: color,size: 1.5em,name)
+    #set align(center)
+
+    #text(fill: color,size:2em,name)
 
     #icon("fa-phone.svg") #phone | #icon("fa-envelope.svg") #email
+
+    #gender | #location | #identity
   ]
-  set text(fill: black)
-  //其他信息
-  rect(
-    width: 100%,
-    fill: rgb(250,250,250),
-    grid(
-      columns: (1fr,1fr),
-      row-gutter: 1em,
-      ..infos
-    )
-    
-  )
-  
+
 }
 
 
@@ -46,6 +41,7 @@
   size: 10pt,
   themeColor: rgb(38, 38, 125),
   photograph: "",
+  logo:"",
   infos,
   body
 ) = {
@@ -53,12 +49,12 @@
   set page( margin: (
     top: 1cm,
     bottom: 1cm,
-    left: 2cm,
-    right: 2cm,
+    left: 1.5cm,
+    right: 1.5cm,
   ))
   
   // 基础字体设定
-  set text(size: size, lang: "zh")
+  set text(size: size, lang: "zh", font: "Kaiti SC")
 
   // 标题
   show heading: set text(themeColor, 1.1em)
@@ -80,21 +76,21 @@
   // 主体设定
   set par(justify: true)
   
+  
   // 首部与照片
   grid(
-    columns: (80%,15%),
-    gutter: 20pt,
+    columns: (10%,70%,15%),
+    logo,
     infos,
-    image(photograph)
+    photograph
   )
   show par: set block(spacing: 0.65em)
-  v(-25pt)
   body
 }
 
 #let sidebar(..contents) = grid(
     columns: (auto, auto),
-    gutter: (0.75em),
+    gutter: (1em),
     ..contents
   )
 
@@ -104,44 +100,51 @@
   size: 0.9em,
 )
 
-// 项目
+// 获奖
 #let award(
-  title,
-  desc,
-  endnote
+  time,
+  name,
+  level
 ) = {
   grid(
-    columns: (0.5fr , 2.5fr, 1.5fr),
+    columns: (20%,50%,22.8%),
     row-gutter: (0.25em),
     column-gutter: 2em,
-    graytext(endnote),title, desc, 
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(time)),
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(name)),
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(level)),
   )
 }
-
-
-#let honor(
-  title,
-  endnote
-) = {
-  grid(
-    columns: (0.6fr , 2.5fr+ 2.5fr),
-    row-gutter: (0.25em),
-    column-gutter: 2em,
-    graytext(endnote),title, 
-  )
-}
-
-
 
 #let item(
-  title,
-  desc,
-  endnote
+  time,
+  name,
+  role
 ) = {
   grid(
-    columns: ( 3.5fr, 0.9fr,0.7fr,),
+    columns: (20%, 60%, 13%),
     row-gutter: (0.25em),
     column-gutter: 2em,
-    text(fill:rgb(38, 38, 125),size:1.1em,"• "+strong(title)), desc, graytext(endnote)
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(time)),
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(name)),
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(role))
+  )
+}
+
+// 教育背景
+#let education(
+  time,
+  university,
+  major,
+  degree
+) = {
+  grid(
+    columns: (25%,25%,25%,14%),
+    row-gutter: (0.25em),
+    column-gutter: 2em,
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(time)),
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(university)),
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(major)),
+    text(fill:rgb(38, 38, 125),size:1.1em,strong(degree))
   )
 }
